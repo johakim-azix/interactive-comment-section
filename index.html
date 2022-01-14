@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/font_awsome/css/all.css">
+    <title>Frontend Mentor | Interactive comments section</title>
+</head>
+<body>
+<input type="checkbox" id="delete-modal-toggle">
+<div class="modal-back-drop">
+    <div style="width: 300px; align-self: center;border-radius: 5px; background-color: white; padding: 20px">
+        <h3 style="margin-bottom: 0">Delete comment</h3>
+        <p class="text" style="margin: 10px 0">Are you sure you want to delete this comment? This will remove the
+            comment and can't be undone.</p>
+        <div>
+            <button class="btn" style="background-color: var(--neutral-dark-blue); color: white">
+                <label for="delete-modal-toggle" style="cursor: pointer">NO,CANCEL</label>
+            </button>
+            <button onclick="deleteComment(null)" class="btn"
+                    style="background-color: var(--primary-soft-red); color: white">
+                YES,DELETE
+            </button>
+        </div>
+    </div>
+</div>
+<div class="scene">
+    <div class="main-container">
+        <div class="comments-queue">
+
+        </div>
+    </div>
+</div>
+
+<div class="comment-container">
+    <div class="new-comment">
+
+        <div class="fake"
+             style="display: flex; width: 100%; justify-content: space-between; margin-right: auto; margin-left: 7px">
+            <div class="avatar display-sm">
+                <img class="avatar" src="images/avatars/image-juliusomo.webp" alt="">
+            </div>
+            <div onfocusin="textAriaFocusIn(this)" onkeyup="enableBtn(this)" onfocusout="textAriaFocusOut(this)"
+                 class="comment-area" style="min-height: 30px!important" contenteditable="true">
+                Enter your comment here ...
+            </div>
+            <div class="display-sm">
+                <button onclick="submitComment(this)" disabled class="btn btn-primary" style="display: block; "><i
+                        style="margin: 0!important" class="fab fa-telegram-plane"></i></button>
+                <button onclick="submitComment(this)" disabled class="btn btn-primary" style="display: block; "><i
+                        style="margin: 0!important" class="fab fa-telegram-plane"></i>55555555</button>
+            </div>
+        </div>
+        <div class="display-xs"
+             style="margin-top: 10px;display: flex; justify-content: space-between; margin-right: auto; margin-left: 7px; width: 100%;">
+            <div class="avatar">
+                <img class="avatar" src="images/avatars/image-juliusomo.webp" alt="">
+            </div>
+            <div>
+                <button onclick="submitComment(this)" disabled class="btn btn-primary" style="display: block; "><i
+                        style="margin: 0!important" class="fab fa-telegram-plane"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/index.js"></script>
+</body>
+</html>
