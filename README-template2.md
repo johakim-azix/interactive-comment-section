@@ -12,9 +12,7 @@ This is a solution to the [Interactive comments section challenge on Frontend Me
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
   - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
 
 **Note: Delete this note and update the table of contents based on what sections you keep.**
 
@@ -37,7 +35,12 @@ Users should be able to:
 - Solution URL: [Add solution URL here](https://your-solution-url.com)
 - Live Site URL: [Add live site URL here](https://your-live-site-url.com)
 
+## My process
+Default displayed comments are actually taken from local file data.json witch contain a bunch of comment and the current user.
+Comments aren't actually persited anywhere, instead the are store in an array, so you'll get back to default comments set once you refresh or close the window.
+
 ### Built with
+
 - HTML5
 - CSS custom properties
 - Flexbox
