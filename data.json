@@ -63,20 +63,6 @@
           }
         }
       ]
-    },
-    {
-      "id": 1,
-      "content": "I'm starting javascript learning !!! it's so exiting ....",
-      "createdAt": "1 month ago",
-      "score": 10,
-      "user": {
-        "image": {
-          "png": "./images/avatars/image-juliusomo.png",
-          "webp": "./images/avatars/image-juliusomo.webp"
-        },
-        "username": "juliusomo"
-      },
-      "replies": []
     }
   ]
 }

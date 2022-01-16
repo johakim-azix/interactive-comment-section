@@ -1,13 +1,13 @@
-import("CommentQueue")
+// import("CommentQueue")
 class CommentQueue {
     static commentViewHolder = "<div id=\"comment-item-id\" class=\"comment-item\">\n" +
         "                           <div class=\"comment-bloc\">\n" +
         "                               <div class=\"comment\">\n" +
         "                                   <div class=\"likes display-sm\" >\n" +
         "                                      <div>" +
-        "                                           <i class=\"fas fa-plus \"></i>\n" +
+        "                                           <i onclick='increaseNote(this)' disabled class=\"fas fa-plus \"></i>\n" +
         "                                           <span>12</span>\n" +
-        "                                           <i class=\"fas fa-minus\"></i>\n" +
+        "                                           <i onclick='decreaseNote(this)' class=\"fas fa-minus\"></i>\n" +
         "                                      </div>" +
         "                                   </div>\n" +
         "                                   <div class=\"content\">\n" +
@@ -40,16 +40,15 @@ class CommentQueue {
         "                                       </p>\n" +
 
 
-
         "                                   <div class='display-xs'>\n" +
 
         "                                           <div class=\"likes \" style='display: flex; justify-content: space-between; width: fit-content'>\n" +
-        "                                               <i class=\"fas fa-plus \"></i>\n" +
+        "                                               <i onclick='increaseNote(this)' class=\"fas fa-plus \"></i>\n" +
         "                                               <span>12</span>\n" +
-        "                                               <i class=\"fas fa-minus\"></i>\n" +
+        "                                               <i onclick='decreaseNote(this)' class=\"fas fa-minus\"></i>\n" +
         "                                           </div>\n" +
 
-        "                                       <div style='display: flex'>"+
+        "                                       <div style='display: flex'>" +
         "                                           <button onclick='deleteComment(this)' name=\"comment-btn-delete\" class=\"btn delete\">" +
         "                                               <label for=''>" +
         "                                                   <i class=\"fas fa-trash-alt\"></i>delete\n" +
@@ -68,20 +67,36 @@ class CommentQueue {
         "                                   </div>\n" +
         "                               </div>\n" +
         "                               <input name=\"reply-section-toggle\" type=\"checkbox\">\n" +
-        "                               <div class=\"new-reply\">\n" +
-        "                                   <div class=\"avatar\">\n" +
-        "                                       <img class=\"avatar\" src=\"images/avatars/image-juliusomo.webp\" alt=\"\">\n" +
-        "                                   </div>\n" +
-        "                                   <div onfocusin=\"textAriaFocusIn(this)\" onkeyup=\"enableBtn(this)\" onfocusout=\"textAriaFocusOut(this)\" class=\"comment-area\" contenteditable=\"true\">\n" +
-        "                                       Enter your reply here ...\n" +
-        "                                   </div>\n" +
+        "                               <div style='' class=\"new-reply\">\n" +
+
+
+        "                                   <div style='display: flex; width: 100%; justify-content: space-between; margin-right: auto; margin-left: 7px'>" +
+        "                                       <div class=\"avatar display-sm \">\n" +
+        "                                           <img class=\"avatar\" src=\"images/avatars/image-juliusomo.webp\" alt=\"\">\n" +
+        "                                       </div>\n" +
+        "                                       <div onfocusin=\"textAriaFocusIn(this)\" onkeyup=\"enableBtn(this)\" onfocusout=\"textAriaFocusOut(this)\" class=\"comment-area\" contenteditable=\"true\">\n" +
+        "                                           Enter your reply here ...\n" +
+        "                                       </div>\n" +
+        "                                       <div class='display-sm bloc'>\n" +
+        "                                           <button onclick='sendReply(this)' name='reply-btn-send' class=\"btn btn-primary\" style=\"display: block; \"><i style=\"margin: 0!important\" class=\"fab fa-telegram-plane\"></i></button>\n" +
+        // "                                        <button onclick='deleteReply(this)' name='reply-btn-delete' class=\"btn secondary\" style=\"display: block; margin-top: 5px; border: solid var(--neutral-light-gray) 1px; \"> <i style=\"margin: 0!important\" class=\"fas fa-trash\"></i></button>\n" +
+        "                                           <button onclick='closeReplyEditer(this)' name='reply-btn-close' class=\"btn delete\" style=\"padding: 10px!important; margin-top: 5px; border: solid var(--primary-soft-red) 1px; \"> <i style=\"margin: 0!important\" class=\"fas fa-times\"></i></button>\n" +
+        "                                       </div>\n" +
+        "                                   </div>" +
+        "                                   <div class=\"display-xs\"\n" +
+        "                                            style=\"margin-top: 10px; justify-content: space-between; margin-right: auto; margin-left: 7px; width: 100%;\">" +
+        "                                       <div class=\"avatar\">\n" +
+        "                                           <img class=\"avatar\" src=\"images/avatars/image-juliusomo.webp\" alt=\"\">\n" +
+        "                                       </div>\n" +
         "                                   <div>\n" +
-        "                                       <button onclick='sendReply(this)' name='reply-btn-send' class=\"btn btn-primary\" style=\"display: block; \"><i style=\"margin: 0!important\" class=\"fab fa-telegram-plane\"></i></button>\n" +
-        "                                       <button onclick='deleteReply(this)' name='reply-btn-delete' class=\"btn secondary\" style=\"display: block; margin-top: 5px; border: solid var(--neutral-light-gray) 1px; \"> <i style=\"margin: 0!important\" class=\"fas fa-trash\"></i></button>\n" +
-        "                                       <button onclick='closeReplyEditer(this)' name='reply-btn-close' class=\"btn delete\" style=\"display: block; margin-top: 5px; border: solid var(--primary-soft-red) 1px; \"> <i style=\"margin: 0!important\" class=\"fas fa-times\"></i></button>\n" +
-        "                                   </div>\n" +
+        "                                   <button onclick=\"sendReply(this)\" disabled class=\"btn btn-primary\" style=\"display: block; \"><i\n" +
+        "                                       style=\"margin: 0!important\" class=\"fab fa-telegram-plane\"></i></button>\n" +
+        "                                   </div>" +
+        "                               </div>" +
         "                               </div>\n" +
         "                           </div>\n" +
+
+
         "                           <div class=\"replies\">\n" +
         "                               <div class=\"queue\">" +
         "                               </div>\n" +
@@ -93,9 +108,9 @@ class CommentQueue {
         "                        <div class=\"comment\">\n" +
         "                            <div class=\"likes display-sm\">\n" +
         "                                      <div>" +
-        "                                           <i class=\"fas fa-plus \"></i>\n" +
+        "                                           <i onclick='increaseNote(this)' class=\"fas fa-plus \"></i>\n" +
         "                                           <span>12</span>\n" +
-        "                                           <i class=\"fas fa-minus\"></i>\n" +
+        "                                           <i onclick='decreaseNote(this)' class=\"fas fa-minus\"></i>\n" +
         "                                      </div>" +
         "                            </div>\n" +
         "                            <div class=\"content\">\n" +
@@ -132,12 +147,12 @@ class CommentQueue {
         "                                   <div class='display-xs'>\n" +
 
         "                                           <div class=\"likes\" style='display: flex; justify-content: space-between; width: fit-content'>\n" +
-        "                                               <i class=\"fas fa-plus \"></i>\n" +
+        "                                               <i onclick='increaseNote(this)' class=\"fas fa-plus \"></i>\n" +
         "                                               <span>12</span>\n" +
-        "                                               <i class=\"fas fa-minus\"></i>\n" +
+        "                                               <i onclick='decreaseNote(this)' class=\"fas fa-minus\"></i>\n" +
         "                                           </div>\n" +
 
-        "                                       <div style='display: flex'>"+
+        "                                       <div style='display: flex'>" +
         "                                           <button onclick='deleteComment(this)' name=\"comment-btn-delete\" class=\"btn delete\">" +
         "                                               <label for=''>" +
         "                                                   <i class=\"fas fa-trash-alt\"></i>delete\n" +
@@ -157,21 +172,32 @@ class CommentQueue {
         "                        </div>\n" +
         "                        <input name=\"reply-section-toggle\" type=\"checkbox\">\n" +
         "                        <div class=\"new-reply\">\n" +
-        "                            <div class=\"avatar\">\n" +
-        "                                <img class=\"avatar\" src=\"images/avatars/image-juliusomo.webp\" alt=\"\">\n" +
-        "                            </div>\n" +
-        "                            <div onfocusin=\"textAriaFocusIn(this)\" onkeyup=\"enableBtn(this)\" onfocusout=\"textAriaFocusOut(this)\" class=\"comment-area\" contenteditable=\"true\">\n" +
-        "                                Enter your reply here ...\n" +
-        "                            </div>\n" +
-        "                            <div>\n" +
+        "                                   <div style='display: flex; width: 100%; justify-content: space-between; margin-right: auto; margin-left: 7px'>" +
+        "                                       <div class=\"avatar display-sm \">\n" +
+        "                                           <img class=\"avatar\" src=\"images/avatars/image-juliusomo.webp\" alt=\"\">\n" +
+        "                                       </div>\n" +
+        "                                       <div onfocusin=\"textAriaFocusIn(this)\" onkeyup=\"enableBtn(this)\" onfocusout=\"textAriaFocusOut(this)\" class=\"comment-area\" contenteditable=\"true\">\n" +
+        "                                           Enter your reply here ...\n" +
+        "                                       </div>\n" +
+        "                                       <div class='display-sm bloc'>\n" +
+        "                                           <button onclick='sendReply(this)' name='reply-btn-send' class=\"btn btn-primary\" style=\"display: block; \"><i style=\"margin: 0!important\" class=\"fab fa-telegram-plane\"></i></button>\n" +
+        // "                                        <button onclick='deleteReply(this)' name='reply-btn-delete' class=\"btn secondary\" style=\"display: block; margin-top: 5px; border: solid var(--neutral-light-gray) 1px; \"> <i style=\"margin: 0!important\" class=\"fas fa-trash\"></i></button>\n" +
+        "                                           <button onclick='closeReplyEditer(this)' name='reply-btn-close' class=\"btn delete\" style=\"padding: 10px!important; margin-top: 5px; border: solid var(--primary-soft-red) 1px; \"> <i style=\"margin: 0!important\" class=\"fas fa-times\"></i></button>\n" +
+        "                                       </div>\n" +
+        "                                   </div>" +
+
+        "                                   <div class=\"display-xs\"\n" +
+        "                                            style=\"margin-top: 10px; justify-content: space-between; margin-right: auto; margin-left: 7px; width: 100%;\">" +
+        "                                       <div class=\"avatar\">\n" +
+        "                                           <img class=\"avatar\" src=\"images/avatars/image-juliusomo.webp\" alt=\"\">\n" +
+        "                                       </div>\n" +
+        "                                   <div>\n" +
+        "                                   <button onclick=\"sendReply(this)\" disabled class=\"btn btn-primary\" style=\"display: block; \"><i\n" +
+        "                                       style=\"margin: 0!important\" class=\"fab fa-telegram-plane\"></i></button>\n" +
+        "                                   </div>" +
+        "                               </div>" +
 
 
-        "                                       <button onclick='sendReply(this)' name='reply-btn-send' class=\"btn btn-primary\" style=\"display: block; \"><i style=\"margin: 0!important\" class=\"fab fa-telegram-plane\"></i></button>\n" +
-        "                                       <button onclick='deleteReply(this)' name='reply-btn-delete' class=\"btn secondary\" style=\"display: block; margin-top: 5px; border: solid var(--neutral-light-gray) 1px; \"> <i style=\"margin: 0!important\" class=\"fas fa-trash\"></i></button>\n" +
-        "                                       <button onclick='closeReplyEditer(this)' name='reply-btn-close' class=\"btn delete\" style=\"display: block; margin-top: 5px; border: solid var(--primary-soft-red) 1px; \"> <i style=\"margin: 0!important\" class=\"fas fa-times\"></i></button>\n" +
-
-
-        "                            </div>\n" +
         "                        </div>\n" +
         "                    </div>"
 
@@ -190,6 +216,33 @@ class CommentQueue {
 
     getComments() {
         return this.commentArray
+    }
+
+    increaseNote(commentIndex, replyIndex) {
+        try {
+            this.findCommentItem(commentIndex, replyIndex).score += 1
+            return true
+        } catch (exeption) {
+            return false
+        }
+    }
+
+    decreaseNote(commentIndex, replyIndex) {
+        try {
+            this.findCommentItem(commentIndex, replyIndex).score -= 1
+            return true
+        } catch (exeption) {
+            return false
+        }
+    }
+
+    findCommentItem(commentIndex, replyIndex) {//find comment in the given comments array
+        if (replyIndex === null) return this.commentArray[commentIndex] //means we are looking for root comment
+        return this.commentArray[commentIndex].replies[replyIndex] //means we're looking for reply
+    }
+
+    findCommentOwner(commentIndex, replyIndex) {
+        return this.findCommentItem(commentIndex, replyIndex).user
     }
 
     addComment(comment) {
@@ -217,10 +270,10 @@ class CommentQueue {
         }
     }
 
-    editComment(commentIndex, replyIndex, textContent){
-        if (replyIndex === null){ //i'm editing a root comment comment
+    editComment(commentIndex, replyIndex, textContent) {
+        if (replyIndex === null) { //i'm editing a root comment comment
             this.commentArray[commentIndex].content = textContent
-        }else { //im' editing a reply
+        } else { //im' editing a reply
             this.commentArray[commentIndex].replies[replyIndex].content = textContent
         }
         //no need to refresh the view since it already contains modifications
@@ -368,9 +421,9 @@ document.addEventListener("DOMContentLoaded", function () {
 })
 
 function renderLoader(times) {
-    let  html = ""
+    let html = ""
     for (let i = 0; i < times; i++) {
-        html+="<div class=\"comment\" style=\"margin: 10px 20px 0 20px\">\n" +
+        html += "<div class=\"comment\" style=\"margin: 10px 20px 0 20px\">\n" +
             "                <div class=\"likes skeleton display-sm\" style=''>\n" +
             "                    <div>\n" +
             "                        <i style=\"color: transparent\" class=\"fas fa-plus\"></i>\n" +
@@ -421,7 +474,7 @@ function renderLoader(times) {
 }
 
 function submitComment(button) {
-    let textArea = (button.parentElement).parentElement.getElementsByClassName("comment-area")[0]
+    let textArea = ((button.parentElement).parentElement).parentElement.getElementsByClassName("comment-area")[0]
     let text = textArea.innerText
     if (text.length === 0) return
     let comment = {
@@ -441,7 +494,7 @@ function submitComment(button) {
     commentQueue.addComment(comment)
     textArea.innerText = "Enter your comment here ..."
     button.disabled = true
-    window.scrollTo(0, document.body.scrollHeight);
+    window.scrollTo(0, document.body.scrollHeight); //todo : review this part
 
 }
 
@@ -454,20 +507,28 @@ function buildFakeId(comments) {
 }
 
 function enableBtn(field) {
+    let submitBtns = null
     let text = field.innerText
-    let submitBtn = field.parentElement.getElementsByTagName("button")[0]
-    let deleteBtn = field.parentElement.getElementsByTagName("button")[1]
-    if (window.screen.width <= 600){
-        alert("it's times")
-    }
-    alert("the btn : "+(field.parentElement).parentElement.getElementsByTagName("button")[1].innerText)
-    if (text.length && (text !== "Enter your comment here ..." || text !== "Enter your reply here ...")) {
-        submitBtn.disabled = false
-        if (deleteBtn !== undefined) submitBtn.disabled = false
+    if ((field.parentElement).parentElement.classList.toString() === "new-comment") {
+        submitBtns = ((field.parentElement).parentElement).getElementsByTagName("button")
     } else {
-        submitBtn.disabled = true
-        if (deleteBtn !== undefined) submitBtn.disabled = true
+        submitBtns = (field.parentElement).parentElement.getElementsByTagName("button")
+
     }
+    if (text.length && (text !== "Enter your comment here ..." || text !== "Enter your reply here ...")) {
+        for (let i = 0; i < submitBtns.length; i++) {
+            submitBtns[i].disabled = false
+        }
+    } else {
+
+        for (let i = 0; i < submitBtns.length; i++) {
+            submitBtns[i].disabled = true
+        }
+        // submitBtns.forEach(button =>{
+        //     button.disabled = true
+        // });
+    }
+
 }
 
 function editComment(button) {
@@ -483,7 +544,6 @@ function storeEditedComment(textArea) {
     textArea.contentEditable = false
     let commentIndex = ""
     let replyIndex = null
-    alert("it's time to stare changes ")
     if ((textArea.innerText.length === 0)) { // your're trying to replace the last comment's content with an empty content; so i wont allow it!!!!!
         textArea.innerText = oldCommentContent
     } else { //record the modifications
@@ -514,7 +574,6 @@ function deleteComment(button) {
         deleteModalToggle.checked = true
         return
     }
-    //todo : add delay to simulate server working or something like that
     let commentIndex = null
     let replyIndex = null
     if ((((((deleteBtn.parentElement).parentElement).parentElement).parentElement).parentElement).parentElement.classList.toString() === "queue") {
@@ -537,10 +596,10 @@ function getRootCommentIndex(commentItem) {
 }
 
 function sendReply(button) {
-    let textArea = (button.parentElement).parentElement.getElementsByClassName("comment-area")[0]
+    let textArea = ((button.parentElement).parentElement).parentElement.querySelector(" div > .comment-area")
     let text = textArea.innerText
     if (text.length === 0) return
-    let commentItem = ((button.parentElement).parentElement).parentElement
+    let commentItem = (((button.parentElement).parentElement).parentElement).parentElement
     let ownerName = commentItem.querySelector(".comment .content .header h4").innerText
     let comment = {
         "id": buildFakeId(comments),
@@ -560,10 +619,6 @@ function sendReply(button) {
     textArea.innerText = "Enter your comment here ..."
     button.disabled = true
     uncheckToggles()
-}
-
-function deleteReply(button) {
-    return false
 }
 
 function closeReplyEditer(button) {
@@ -594,4 +649,36 @@ function textAriaFocusOut(textArea) {
     let textEditoreClass = textArea.parentElement.classList.toString()
     if (text.length === 0 && textEditoreClass === "new-comment") textArea.innerText = "Enter your comment here ..."
     if (text.length === 0 && textEditoreClass === "new-reply") textArea.innerText = "Enter your reply here ..."
+}
+
+function increaseNote(button) {
+    let commentOwner = null;
+    let commentIndex = null
+    let replyIndex = null
+    if (((((button.parentElement).parentElement).parentElement).parentElement).parentElement.classList.toString() === "comment-item") {
+        commentIndex = ((((button.parentElement).parentElement).parentElement).parentElement).parentElement.getAttribute("id").toString().split("-")[2]
+        commentOwner = commentQueue.findCommentOwner(commentIndex, replyIndex)
+    } else {
+        commentIndex = ((((((button.parentElement).parentElement).parentElement).parentElement).parentElement).parentElement).parentElement.getAttribute("id").toString().split("-")[2]
+        replyIndex = ((((button).parentElement).parentElement).parentElement).parentElement.getAttribute("id").toString().split("-")[2]
+        commentOwner = commentQueue.findCommentOwner(commentIndex, replyIndex)
+    }
+    if (currentUser.username === commentOwner.username) return;
+    if (commentQueue.increaseNote(commentIndex, replyIndex)) button.parentElement.getElementsByTagName("span")[0].innerText = parseInt(button.parentElement.getElementsByTagName("span")[0].innerText)+1
+}
+
+function decreaseNote(button) {
+    let commentOwner = null;
+    let commentIndex = null
+    let replyIndex = null
+    if (((((button.parentElement).parentElement).parentElement).parentElement).parentElement.classList.toString() === "comment-item") {
+        commentIndex = ((((button.parentElement).parentElement).parentElement).parentElement).parentElement.getAttribute("id").toString().split("-")[2]
+        commentOwner = commentQueue.findCommentOwner(commentIndex, replyIndex)
+    } else {
+        commentIndex = ((((((button.parentElement).parentElement).parentElement).parentElement).parentElement).parentElement).parentElement.getAttribute("id").toString().split("-")[2]
+        replyIndex = ((((button).parentElement).parentElement).parentElement).parentElement.getAttribute("id").toString().split("-")[2]
+        commentOwner = commentQueue.findCommentOwner(commentIndex, replyIndex)
+    }
+    if (currentUser.username === commentOwner.username) return;
+    if (commentQueue.decreaseNote(commentIndex, replyIndex)) button.parentElement.getElementsByTagName("span")[0].innerText = parseInt(button.parentElement.getElementsByTagName("span")[0].innerText)-1
 }
