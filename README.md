@@ -14,8 +14,6 @@ This is a solution to the [Interactive comments section challenge on Frontend Me
   - [Continued development](#continued-development)
 - [Author](#author)
 
-**Note: Delete this note and update the table of contents based on what sections you keep.**
-
 ## Overview
 
 ### The challenge
@@ -32,8 +30,8 @@ Users should be able to:
 ![Desktop design](./design/desktop-design.jpg)
 
 ### Links
-- Solution URL: [Add solution URL here](https://github.com/johakim-azix/interactive-comment-section)
-- Live Site URL: [Add live site URL here](https://johakim-azix.github.io/interactive-comment-section/)
+- Solution URL: [Interactive comments section gitHub repo](https://github.com/johakim-azix/interactive-comment-section)
+- Live Site URL: [Interactive comments section demo](https://johakim-azix.github.io/interactive-comment-section/)
 
 ## My process
 Default displayed comments are actually taken from local file data.json witch contain a bunch of comment and the current user.
@@ -59,7 +57,7 @@ Starting from the current implementation i currently made, i want dive a bit dee
 - Move to backend with js !!!!!!
 
 ## Author
-- Frontend Mentor - [@johakim-azix](https://www.frontendmentor.io/profile/yourusername)
+- Frontend Mentor - [@johakim-azix](https://www.frontendmentor.io/profile/johakim-azix)
 - Github  - [johakim-azix](https://github.com/johakim-azix/)
 - Twitter - [@marlonneazix](https://twitter.com/marlonneazix)
 - Instagram - [@marlonne_penda](https://www.instagram.com/marlonne_penda/)
