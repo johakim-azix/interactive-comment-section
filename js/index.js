@@ -256,6 +256,7 @@ class CommentQueue {
             this.renderComments(this.layout)
             this.commentArray.forEach((comment, index) => {
                 if (comment.id !== commentId) return
+                if (commentIndex === index) return
                 document.getElementById("comment-item-"+index).scrollIntoView({
                     behavior:"smooth",
                     block:"start",
