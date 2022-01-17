@@ -34,6 +34,9 @@
     --z-modal: 1000;
 }
 
+*{
+    scroll-behavior: smooth;
+}
 
 body{
     font-family: var(--body-font);

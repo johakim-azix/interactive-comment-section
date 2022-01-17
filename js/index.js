@@ -207,6 +207,7 @@ class CommentQueue {
         this.commentArray = commentArray
         this.currentUser = currentUser
         this.layout.innerHTML = ""
+        this.orderCommentByVotes()
         this.renderComments(this.layout)
     }
 
@@ -220,18 +221,48 @@ class CommentQueue {
 
     increaseNote(commentIndex, replyIndex) {
         try {
+            let commentId = this.commentArray[commentIndex].id
             this.findCommentItem(commentIndex, replyIndex).score += 1
+            this.orderCommentByVotes()
+            this.layout.innerHTML = ""
+            this.renderComments(this.layout)
+            this.commentArray.forEach((comment, index) => {
+                if (comment.id !== commentId) return
+                document.getElementById("comment-item-"+index).scrollIntoView({
+                    behavior:"smooth",
+                    block:"start",
+                })
+            })
             return true
         } catch (exeption) {
             return false
         }
     }
 
+    orderCommentByVotes(){
+        this.commentArray.sort((commentB, commentA) =>{
+            return (commentA.score - commentB.score)
+        })
+    }
+
     decreaseNote(commentIndex, replyIndex) {
         try {
-            this.findCommentItem(commentIndex, replyIndex).score -= 1
+            let newScore = this.findCommentItem(commentIndex, replyIndex).score - 1
+            if (newScore < 0) return false
+            let commentId = this.commentArray[commentIndex].id
+            this.findCommentItem(commentIndex, replyIndex).score = newScore
+            this.orderCommentByVotes()
+            this.layout.innerHTML = ""
+            this.renderComments(this.layout)
+            this.commentArray.forEach((comment, index) => {
+                if (comment.id !== commentId) return
+                document.getElementById("comment-item-"+index).scrollIntoView({
+                    behavior:"smooth",
+                    block:"start",
+                })
+            })
             return true
-        } catch (exeption) {
+        } catch (exception) {
             return false
         }
     }
@@ -248,12 +279,24 @@ class CommentQueue {
     addComment(comment) {
         this.commentArray.push(comment)
         this.layout.appendChild(this.bindCommentViewHolder(comment, (this.commentArray.length - 1), CommentQueue.commentViewHolder))
+        setTimeout(()=>{
+            document.getElementById("comment-item-"+(this.commentArray.length - 1)).scrollIntoView({
+                behavior:"smooth",
+                block:"start",
+            })
+        },50)
     }
 
     addReply(comment, rootCommentIndex) {
         this.commentArray[rootCommentIndex].replies.push(comment)
         let repliesQueueLayout = document.getElementById("comment-item-" + rootCommentIndex).getElementsByClassName("queue")[0]
         repliesQueueLayout.appendChild(this.bindReplyViewHolder(comment, (this.commentArray[rootCommentIndex].replies.length - 1), CommentQueue.replyViewHolder))
+        setTimeout(()=>{
+            document.getElementById("comment-item-"+rootCommentIndex).scrollIntoView({
+                behavior:"smooth",
+                block:"end"
+            })
+        },50)
     }
 
     removeComment(commentIndex, replyIndex) {
